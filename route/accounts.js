@@ -14,6 +14,7 @@ router.post("/getAll", async (req, res) => {
     //     if (err) res.send("error adding to account");
     //     res.send("successfully added new account!");
     // });
+    res.send("yay!");
 });
 
 module.exports = router;
