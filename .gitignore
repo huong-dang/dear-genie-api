@@ -1,0 +1,4 @@
+.env
+.eslintrc
+package-lock.json
+node_modules
