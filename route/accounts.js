@@ -13,7 +13,24 @@ router.post("/all", (req, res) => {
     });
 });
 
-router.post("/create", async (req, res) => {
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const result = await Account.findOne({ email: String(email) });
+        if (result) {
+            result.validPassword(password)
+                ? res.status(200).send("User found!")
+                : res.status(400).send("Incorrect email or password");
+        } else {
+            res.status(400).send("No email / password found");
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+router.post("/create", (req, res) => {
     const { password, name, email } = req.body;
 
     const account = new Account({
