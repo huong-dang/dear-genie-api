@@ -37,15 +37,9 @@ const AccountSchema = new Schema(
                             AccountSchema
                         );
                         account
-                            .find({ email: String(val) })
-                            .then((res) => {
-                                res && res.length > 0
-                                    ? resolve(false)
-                                    : resolve(true);
-                            })
-                            .catch((err) => {
-                                reject(err);
-                            });
+                            .findOne({ email: String(val) })
+                            .then((res) => resolve(!res))
+                            .catch((err) => reject(err));
                     });
                 },
                 message: "{VALUE} already exists in our system",
