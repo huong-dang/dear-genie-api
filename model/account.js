@@ -63,9 +63,8 @@ AccountSchema.post("validate", (doc, next) => {
     }
 });
 
-// checking if password is valid
 AccountSchema.methods.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
+    return bcrypt.compareSync(String(password), this.password);
 };
 
 module.exports = mongoose.model("Account", AccountSchema);
