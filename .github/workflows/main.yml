@@ -39,11 +39,11 @@ jobs:
       env:
         EMAIL: ${{ secrets.EMAIL }}
         HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
-    - name: "Add remote"
+#     - name: "Add remote"
+#       shell: "bash"
+#       run: |
+#         heroku git:remote -a dear-genie-dev
+    - name: "Add remote and push to heroku"
       shell: "bash"
       run: |
-        heroku git:remote -a dear-genie-dev
-    - name: "Push to Heroku"
-      shell: "bash"
-      run: |
-        git push -f heroku HEAD:master
+        heroku git:remote -a dear-genie-dev && git push -f heroku HEAD:master
