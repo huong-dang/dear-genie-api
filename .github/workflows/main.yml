@@ -31,25 +31,8 @@ jobs:
 #         npm test 
 #       env:
 #         CI: true
-    - name: "Create .netrc for Heroku Auth"
-      shell: bash
-      run: |
-        `cat >~/.netrc <<EOF
-        machine api.heroku.com
-            login $EMAIL
-             password $HEROKU_AUTH_TOKEN
-        machine git.heroku.com
-            login $EMAIL
-            password $HEROKU_AUTH_TOKEN
-        EOF`
-      env:
-        EMAIL: ${{ secrets.EMAIL }}
-        HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_KEY }}
-    - name: "Add remote"
-      shell: "bash"
-      run: |
-         heroku git:remote --app dear-genie-dev
-    - name: "Push to heroku"
-      shell: "bash"
-      run: |
-        git push heroku HEAD:master
+    - uses: akhileshns/heroku-deploy@v3.5.7 # This is the action we are importing
+      with: # It accepts some arguments to work, we can pass the argument using `with`
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}} # This is the same as the auth key we generated earlier
+        heroku_app_name: "dear-genie-dev" #Must be unique in Heroku
+        heroku_email: ${{secrets.EMAIL}} # Email attached to the account
