@@ -36,3 +36,4 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}} # This is the same as the auth key we generated earlier
         heroku_app_name: "dear-genie-dev" #Must be unique in Heroku
         heroku_email: ${{secrets.EMAIL}} # Email attached to the account
+        dontuseforce: 1 
