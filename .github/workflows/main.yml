@@ -25,6 +25,7 @@ jobs:
         npm test 
       env:
         CI: true
+    - run: git add -A && git commit -m "Updated code" # <- Add this line
     - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
       with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
