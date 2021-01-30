@@ -1,34 +1,35 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
+const ERRORS = require("../utilities/errors");
 
 const AccountSchema = new Schema(
     {
         password: {
             type: Schema.Types.String,
-            required: [true, "Password is required"],
+            required: [true, ERRORS.PASSWORD_REQUIRED],
             validate: {
                 validator: (pass) => {
                     return pass && typeof pass === "string" && pass.length >= 8;
                 },
-                message: "Password must be at least 8 characters",
+                message: ERRORS.PASSWORD_LENGTH,
             },
         },
         name: {
             type: Schema.Types.String,
-            required: [true, "Name is required"],
+            required: [true, ERRORS.NAME_REQUIRED],
         },
         dateCreated: {
             type: Schema.Types.Date,
-            required: true,
+            required: [true, ERRORS.DATE_CREATED_REQUIRED],
         },
         dateUpdated: {
             type: Schema.Types.Date,
-            required: true,
+            required: [true, ERRORS.DATE_UPDATED_REQUIRED],
         },
         email: {
             type: Schema.Types.String,
-            required: [true, "Email is required"],
+            required: [true, ERRORS.EMAIL_REQUIRED],
             validate: {
                 validator: (val) => {
                     return new Promise((resolve, reject) => {
@@ -42,7 +43,7 @@ const AccountSchema = new Schema(
                             .catch((err) => reject(err));
                     });
                 },
-                message: "{VALUE} already exists in our system",
+                message: ERRORS.EMAIL_EXISTS,
             },
         },
         verified: {
