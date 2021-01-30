@@ -5,6 +5,7 @@ const accounts = require("./route/accounts");
 const wishes = require("./route/wishes");
 const bodyParser = require("body-parser");
 const connectDB = require("./db");
+const PORT = process.env.PORT || 3000;
 
 connectDB().then(() => {
     const app = express();
@@ -14,8 +15,8 @@ connectDB().then(() => {
     app.get("/", (req, res) => {
         res.send("hello!");
     });
-    app.listen(3000, (err) => {
+    app.listen(PORT, (err) => {
         if (err) throw err;
-        console.log(`> Ready on port ${3000}`);
+        console.log(`> Ready on port ${PORT}`);
     });
 });
