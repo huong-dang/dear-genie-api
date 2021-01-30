@@ -19,9 +19,9 @@ jobs:
         # Default: ${{ github.repository }}
         repository: "huong-dang/dearGenie"
         ref: "master"
-    - name: "Set up git config"
-      run: |
-        git config user.email "huong@huong.com" && git config user.name "USER NAME" && git commit --allow-empty -m "Trigger build"
+#     - name: "Set up git config"
+#       run: |
+#         git config user.email "huong@huong.com" && git config user.name "USER NAME" && git commit --allow-empty -m "Trigger build"
 #     - name: npm install
 #       run: |
 #         npm install
@@ -35,3 +35,6 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}} # This is the same as the auth key we generated earlier
         heroku_app_name: "dear-genie-dev" #Must be unique in Heroku
         heroku_email: ${{secrets.EMAIL}} # Email attached to the account
+        justlogin: true
+    - run: |
+         heroku container:login
