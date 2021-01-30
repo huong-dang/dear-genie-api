@@ -17,7 +17,7 @@ jobs:
     - run: |
           ssh-keygen -t rsa -f /home/runner/.ssh/id_rsa -q -P ""
     - run: |
-          heroku keys:add /home/runner/.ssh/id_rs
+          heroku keys:add /home/runner/.ssh/id_rsa.pub
 #     - name: npm install
 #       run: |
 #         npm install
