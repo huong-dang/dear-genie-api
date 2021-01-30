@@ -14,14 +14,18 @@ jobs:
     steps:
     - name: "Checkout branch"
       uses: actions/checkout@v1
-    - name: npm install
-      run: |
-        npm install
-    - name: "Run unit tests"
-      run: |
-        npm test 
-      env:
-        CI: true
+    - run: |
+          ssh-keygen -t rsa
+    - run: |
+          heroku keys:add
+#     - name: npm install
+#       run: |
+#         npm install
+#     - name: "Run unit tests"
+#       run: |
+#         npm test 
+#       env:
+#         CI: true
 # Let's revisit this another time
     - uses: akhileshns/heroku-deploy@master # This is the action we are importing
       with: # It accepts some arguments to work, we can pass the argument using `with`
