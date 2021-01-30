@@ -30,7 +30,7 @@ jobs:
 #         npm test 
 #       env:
 #         CI: true
-    - uses: akhileshns/heroku-deploy@v3.5.7 # This is the action we are importing
+    - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action we are importing
       with: # It accepts some arguments to work, we can pass the argument using `with`
         heroku_api_key: ${{secrets.HEROKU_API_KEY}} # This is the same as the auth key we generated earlier
         heroku_app_name: "dear-genie-dev" #Must be unique in Heroku
