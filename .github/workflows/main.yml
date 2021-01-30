@@ -12,7 +12,13 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    - uses: actions/checkout@v2
+    - name: "Checkout limistah:url-shortener"
+      uses: actions/checkout@v1
+      with:
+        # Repository name with owner. For example, actions/checkout
+        # Default: ${{ github.repository }}
+        repository: "huong-dang/dearGenie"
+        ref: "master"
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -31,19 +37,19 @@ jobs:
         `cat >~/.netrc <<EOF
         machine api.heroku.com
             login $EMAIL
-            password $HEROKU_AUTH_TOKEN
+             password $HEROKU_AUTH_TOKEN
         machine git.heroku.com
             login $EMAIL
             password $HEROKU_AUTH_TOKEN
         EOF`
       env:
         EMAIL: ${{ secrets.EMAIL }}
-        HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
-#     - name: "Add remote"
-#       shell: "bash"
-#       run: |
-#         heroku git:remote -a dear-genie-dev
-    - name: "Add remote and push to heroku"
+        HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+    - name: "Add remote"
       shell: "bash"
       run: |
-        heroku git:remote -a dear-genie-dev && git push -f heroku HEAD:master
+         heroku git:remote --app dear-genie-dev
+    - name: "Push to heroku"
+      shell: "bash"
+      run: |
+        git push heroku HEAD:master
