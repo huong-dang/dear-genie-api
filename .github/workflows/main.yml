@@ -12,22 +12,26 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: "Checkout limistah:url-shortener"
+      uses: actions/checkout@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install
+        # Repository name with owner. For example, actions/checkout
+        # Default: ${{ github.repository }}
+        repository: "huong-dang/dearGenie"
+        ref: "master"
+    - name: "Set up git config"
       run: |
-        npm install
-    - name: npm test
-      run: |
-        npm test 
-      env:
-        CI: true
-    - uses: akhileshns/heroku-deploy@v3.8.8
-      with:
-        heroku_email: your Heroku e-mail
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-        branch: master
+        git config user.email "huong@huong.com" && git config user.name "USER NAME" && git add -A && git commit -m "Updated code"
+#     - name: npm install
+#       run: |
+#         npm install
+#     - name: npm test
+#       run: |
+#         npm test 
+#       env:
+#         CI: true
+    - uses: akhileshns/heroku-deploy@v3.5.7 # This is the action we are importing
+      with: # It accepts some arguments to work, we can pass the argument using `with`
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}} # This is the same as the auth key we generated earlier
+        heroku_app_name: "dear-genie-dev" #Must be unique in Heroku
+        heroku_email: ${{secrets.EMAIL}} # Email attached to the account
