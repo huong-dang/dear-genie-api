@@ -31,6 +31,7 @@ describe("Account model will", () => {
         await AccountModel.deleteMany({});
     });
     it("create and save a new account", async () => {
+        fail("fail test");
         const account = new AccountModel(user);
         const result = await account.save();
 
