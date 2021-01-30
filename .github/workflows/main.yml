@@ -21,7 +21,7 @@ jobs:
         ref: "master"
     - name: "Set up git config"
       run: |
-        git config user.email "huong@huong.com" && git config user.name "USER NAME" && git add -A && git commit -m "Updated code"
+        git config user.email "huong@huong.com" && git config user.name "USER NAME" && git commit --allow-empty -m "Trigger build"
 #     - name: npm install
 #       run: |
 #         npm install
