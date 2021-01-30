@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - 7
+    - 8
+    - 10
+before_install:
+    - npm install -g npm
+script:
+    - npm install
+    - npm run test
+# deploy:
+#     provider: heroku
+#     api_key:
+#         secure:
+#     app: dearGenie
+#     on:
+#         repo: huong-dang/dearGenie
