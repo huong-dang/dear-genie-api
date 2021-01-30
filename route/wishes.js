@@ -2,24 +2,52 @@ const express = require("express");
 const router = express.Router();
 const Wish = require("../model/wish");
 const Account = require("../model/account");
-const { getMongooseValidationErrors } = require("../utilities/errors");
+const { getMoongoseErrors } = require("../utilities/errors");
 
-router.post("/all", (req, res) => {
-    return Wish.find({}, (err, result) => {
-        if (err) {
-            console.log("could not fetch all of wishes");
-            res.err("oops");
-        } else {
-            res.json(result);
-        }
-    });
+const getAccountId = async (email) => {
+    const account = await Account.findOne({ email: String(email) });
+    return account ? account._id : account;
+};
+
+router.post("/delete", async (req, res) => {
+    res.status(200).send("hooray");
+});
+
+router.post("/update", async (req, res) => {
+    res.status(200).send("hooray");
+});
+
+router.post("/view", async (req, res) => {
+    try {
+        const { email } = req.body;
+        const accountId = await getAccountId(email);
+
+        return Wish.find(
+            { accountId: accountId ? String(accountId) : accountId },
+            (err, docs) => {
+                try {
+                    if (err) {
+                        res.status(400).jsonp({
+                            errors: getMoongoseErrors(err),
+                        });
+                    } else {
+                        res.status(200).jsonp(docs);
+                    }
+                } catch (e) {
+                    res.status(500).send("Interal Server Error");
+                }
+            }
+        );
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 router.post("/add", async (req, res) => {
     try {
         const { email, url, name, description } = req.body;
-        const account = await Account.findOne({ email: String(email) });
-        const accountId = account ? account._id : null;
+        const accountId = await getAccountId(email);
         const wish = new Wish({
             accountId: accountId ? String(accountId) : accountId,
             url: url ? String(url) : url,
@@ -29,12 +57,16 @@ router.post("/add", async (req, res) => {
         });
 
         return wish.save((err) => {
-            if (err) {
-                res.status(400).jsonp({
-                    errors: getMongooseValidationErrors(err),
-                });
-            } else {
-                res.status(200).send("Successfully added wish!");
+            try {
+                if (err) {
+                    res.status(400).jsonp({
+                        errors: getMoongoseErrors(err),
+                    });
+                } else {
+                    res.status(200).send("Successfully added wish!");
+                }
+            } catch (e) {
+                res.status(500).send("Interal Server Error");
             }
         });
     } catch (e) {

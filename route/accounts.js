@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Account = require("../model/account");
-const { getMongooseValidationErrors } = require("../utilities/errors");
+const { getMoongoseErrors } = require("../utilities/errors");
 
 router.post("/all", (req, res) => {
     return Account.find({}, (err, result) => {
@@ -46,7 +46,7 @@ router.post("/create", (req, res) => {
         try {
             if (err) {
                 res.status(400).jsonp({
-                    errors: getMongooseValidationErrors(err),
+                    errors: getMoongoseErrors(err),
                 });
             } else {
                 res.status(200).jsonp({

@@ -9,16 +9,21 @@ const ERRORS = {
     WISH_NAME_REQUIRED: "Wish name is required",
     ACCOUNT_ID_REQUIRED: "Account ID is required",
 };
-
-function getMongooseValidationErrors(err) {
+const mongoose = require("mongoose");
+function getMoongoseErrors(err) {
     errors = [];
-    for (e in err.errors) {
-        errors.push(err.errors[e].message);
+    if (err instanceof mongoose.Error.ValidationError) {
+        for (e in err.errors) {
+            errors.push(err.errors[e].message);
+        }
+    } else {
+        errors.push(err.message);
     }
+
     return errors;
 }
 
 module.exports = {
     ERRORS,
-    getMongooseValidationErrors,
+    getMoongoseErrors,
 };
