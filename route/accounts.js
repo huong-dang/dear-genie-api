@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Account = require("../model/account");
+const { getMongooseValidationErrors } = require("../utilities/errors");
 
 router.post("/all", (req, res) => {
     return Account.find({}, (err, result) => {
@@ -44,11 +45,9 @@ router.post("/create", (req, res) => {
     return account.save((err) => {
         try {
             if (err) {
-                errors = [];
-                for (e in err.errors) {
-                    errors.push(err.errors[e].message);
-                }
-                res.status(400).jsonp({ errors: errors });
+                res.status(400).jsonp({
+                    errors: getMongooseValidationErrors(err),
+                });
             } else {
                 res.status(200).jsonp({
                     message: "Successfully added account.",
