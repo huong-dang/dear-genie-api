@@ -43,3 +43,7 @@ jobs:
       shell: "bash"
       run: |
         heroku git:remote -a dear-genie-dev
+    - name: "Push to Heroku"
+      shell: "bash"
+      run: |
+        git push heroku master --f
