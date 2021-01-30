@@ -15,7 +15,7 @@ jobs:
     - name: "Checkout branch"
       uses: actions/checkout@v1
     - run: |
-          ssh-keygen -t rsa
+          ssh-keygen -b 2048 -t rsa -f /home/runner/.ssh/id_rsa -q -N ""
     - run: |
           heroku keys:add
 #     - name: npm install
