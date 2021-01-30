@@ -19,10 +19,9 @@ jobs:
         # Default: ${{ github.repository }}
         repository: "huong-dang/dearGenie"
         ref: "master"
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+    - name: "Set up git config"
+      run: |
+        git config user.email "huong@huong.com" && git config user.name "USER NAME" && git add -A && git commit -m "Updated code"
 #     - name: npm install
 #       run: |
 #         npm install
