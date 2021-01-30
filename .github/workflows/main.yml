@@ -14,11 +14,11 @@ jobs:
     steps:
     - name: "Checkout limistah:url-shortener"
       uses: actions/checkout@v1
-      with:
+#       with:
         # Repository name with owner. For example, actions/checkout
         # Default: ${{ github.repository }}
-        repository: "huong-dang/dearGenie"
-        ref: "master"
+#         repository: "huong-dang/dearGenie"
+#         ref: "master"
 #     - name: "Set up git config"
 #       run: |
 #         git config user.email "huong@huong.com" && git config user.name "USER NAME" && git commit --allow-empty -m "Trigger build"
@@ -39,4 +39,4 @@ jobs:
     - run: |
         git config user.name "huong" && git config user.email "huong@huong.com"
         git remote add heroku-dev https://git.heroku.com/dear-genie-dev.git
-        git push heroku-dev master
+        git push heroku-dev HEAD:master
