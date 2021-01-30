@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const AccountModel = require("../../../model/account");
-const ERRORS = require("../../../utilities/errors");
+const { ERRORS } = require("../../../utilities/errors");
 
 const user = {
     name: "Linh",
@@ -74,7 +74,9 @@ describe("Account model will", () => {
                 ERRORS.PASSWORD_REQUIRED
             );
             expect(err.errors["email"].message).toBe(ERRORS.EMAIL_REQUIRED);
-            expect(err.errors["name"].message).toBe(ERRORS.NAME_REQUIRED);
+            expect(err.errors["name"].message).toBe(
+                ERRORS.ACCOUNT_NAME_REQUIRED
+            );
             expect(err.errors["dateUpdated"].message).toBe(
                 ERRORS.DATE_UPDATED_REQUIRED
             );

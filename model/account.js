@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
-const ERRORS = require("../utilities/errors");
+const { ERRORS } = require("../utilities/errors");
 
 const AccountSchema = new Schema(
     {
@@ -17,7 +17,7 @@ const AccountSchema = new Schema(
         },
         name: {
             type: Schema.Types.String,
-            required: [true, ERRORS.NAME_REQUIRED],
+            required: [true, ERRORS.ACCOUNT_NAME_REQUIRED],
         },
         dateCreated: {
             type: Schema.Types.Date,
