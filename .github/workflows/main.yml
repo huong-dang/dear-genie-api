@@ -39,4 +39,4 @@ jobs:
     - run: |
         git config user.name "huong" && git config user.email "huong@huong.com"
         git remote add heroku-dev git@heroku.com:dear-genie-dev.git
-        git push heroku-dev HEAD:master
+        git push heroku-dev origin:master
