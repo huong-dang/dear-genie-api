@@ -38,5 +38,5 @@ jobs:
         justlogin: true
     - run: |
         git config user.name "huong" && git config user.email "huong@huong.com"
-        git remote add heroku https://git.heroku.com/dear-genie-dev.git
-        git push heroku master
+        git remote add heroku-dev https://git.heroku.com/dear-genie-dev.git
+        git push heroku-dev master
