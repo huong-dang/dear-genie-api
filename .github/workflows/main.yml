@@ -25,6 +25,9 @@ jobs:
         npm test 
       env:
         CI: true
+    - name: Install heroku
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
     - name: Heroku login
       run: |
         machine api.heroku.com
