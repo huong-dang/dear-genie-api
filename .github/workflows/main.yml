@@ -37,6 +37,6 @@ jobs:
         heroku_email: ${{secrets.EMAIL}} # Email attached to the account
         justlogin: true
     - run: |
-        # git config user.name "<NAME>" && git config user.email "<EMAIL>" # You may have to do this as well
+        git config user.name "huong" && git config user.email "huong@huong.com"
         git remote add heroku git@heroku.com:dear-genie-dev.git
         git push heroku master
