@@ -21,23 +21,16 @@ router.post("/view", async (req, res) => {
     try {
         const { email } = req.body;
         const accountId = await getAccountId(email);
-
-        return Wish.find(
-            { accountId: accountId ? String(accountId) : accountId },
-            (err, docs) => {
-                try {
-                    if (err) {
-                        res.status(400).jsonp({
-                            errors: getMoongoseErrors(err),
-                        });
-                    } else {
-                        res.status(200).jsonp(docs);
-                    }
-                } catch (e) {
-                    res.status(500).send("Interal Server Error");
-                }
-            }
-        );
+        try {
+            const docs = await Wish.find({
+                accountId: accountId ? String(accountId) : accountId,
+            });
+            res.status(200).jsonp(docs);
+        } catch (err) {
+            res.status(400).jsonp({
+                errors: getMoongoseErrors(err),
+            });
+        }
     } catch (e) {
         console.log(e);
         res.status(500).send("Internal Server Error");
@@ -56,19 +49,14 @@ router.post("/add", async (req, res) => {
             dateUpdated: Date.now(),
         });
 
-        return wish.save((err) => {
-            try {
-                if (err) {
-                    res.status(400).jsonp({
-                        errors: getMoongoseErrors(err),
-                    });
-                } else {
-                    res.status(200).send("Successfully added wish!");
-                }
-            } catch (e) {
-                res.status(500).send("Interal Server Error");
-            }
-        });
+        try {
+            await wish.save();
+            res.status(200).send("Successfully added wish!");
+        } catch (err) {
+            res.status(400).jsonp({
+                errors: getMoongoseErrors(err),
+            });
+        }
     } catch (e) {
         console.log(e);
         res.status(500).send("Internal Server Error");
