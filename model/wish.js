@@ -8,12 +8,22 @@ const WishSchema = new Schema(
             type: Schema.Types.ObjectId,
             required: [true, ERRORS.ACCOUNT_ID_REQUIRED],
         },
-        url: String,
+        url: {
+            type: Schema.Types.String,
+            default: "",
+        },
         name: {
             type: Schema.Types.String,
             required: [true, ERRORS.WISH_NAME_REQUIRED],
         },
-        description: Schema.Types.String,
+        description: {
+            type: Schema.Types.String,
+            default: "",
+        },
+        dateCreated: {
+            type: Schema.Types.Date,
+            required: true,
+        },
         dateUpdated: {
             type: Schema.Types.Date,
             required: true,

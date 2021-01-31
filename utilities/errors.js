@@ -8,6 +8,7 @@ const ERRORS = {
     EMAIL_EXISTS: "{VALUE} already exists in our system",
     WISH_NAME_REQUIRED: "Wish name is required",
     ACCOUNT_ID_REQUIRED: "Account ID is required",
+    WISH_ID_REQUIRED: "List of wish IDs is required",
 };
 const mongoose = require("mongoose");
 function getMoongoseErrors(err) {

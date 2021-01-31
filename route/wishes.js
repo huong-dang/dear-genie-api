@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Wish = require("../model/wish");
 const Account = require("../model/account");
-const { getMoongoseErrors } = require("../utilities/errors");
+const { getMoongoseErrors, ERRORS } = require("../utilities/errors");
 
 const getAccountId = async (email) => {
     const account = await Account.findOne({ email: String(email) });
@@ -10,11 +10,47 @@ const getAccountId = async (email) => {
 };
 
 router.post("/delete", async (req, res) => {
-    res.status(200).send("hooray");
+    try {
+        const { ids } = req.body;
+        if (ids && ids instanceof Array && ids.length > 0) {
+            try {
+                const result = await Wish.deleteMany({ _id: { $in: ids } });
+                res.status(200).send(`Deleted ${result.deletedCount} wishes`);
+            } catch (e) {
+                res.status(400).jsonp({ errors: getMoongoseErrors(e) });
+            }
+        } else {
+            res.status(400).jsonp({ errors: [ERRORS.WISH_ID_REQUIRED] });
+        }
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 router.post("/update", async (req, res) => {
-    res.status(200).send("hooray");
+    try {
+        const { id, url, name, description } = req.body;
+        try {
+            const doc = await Wish.updateOne(
+                { _id: id ? String(id) : id },
+                {
+                    url: url ? String(url) : url,
+                    name: name ? String(name) : name,
+                    description: description
+                        ? String(description)
+                        : description,
+                    dateUpdated: Date.now(),
+                }
+            );
+            res.status(200).jsonp(doc);
+        } catch (e) {
+            res.status(400).jsonp({ errors: getMoongoseErrors(e) });
+        }
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 router.post("/view", async (req, res) => {
@@ -43,7 +79,7 @@ router.post("/add", async (req, res) => {
         const accountId = await getAccountId(email);
         const wish = new Wish({
             accountId: accountId ? String(accountId) : accountId,
-            url: url ? String(url) : url,
+            url: url ? String(url) : "",
             name: name ? String(name) : name,
             description: description ? String(description) : description,
             dateUpdated: Date.now(),
