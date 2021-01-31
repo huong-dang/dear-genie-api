@@ -12,4 +12,4 @@ deploy:
         secure: "JJ4DBqMagfAKvIxcrjzv/05kcsdxNVmkw60rvMkUu3NXKX6Q8eAX93ehHAchgmuBv6jMUlIos9ws1+Jhv9HEzFTkdVOmecmsV+4MPrrKQhI0i6OvRDs300lfFuSlYUHIiYpCOBZUeGBP48a/9wHzFsMU2vi4sHwF+q56ZN6q+8oUOzsTSDVUtHrESFNJFs/nAmOAgKhnEpw41MNwVKnwHi2GmZpSw9kiJs+erQVwy+wVXbZOpGGpOwGuMA8qmKiDg3cDyK/Df2hbIxC1yQIqPGNE4mldgGk6NrbWr2LqzbZ+x5bmo0SpXZdCSGoJEPBaCkpcToBqfaRvMktEOeMzRcS1JOE3wjrpciAGzd03sgS6arh+J/8tGWPBOne/mmY7IqQhFQvGFiIAk1mLd+P5NK4kCHipfndkXD+FcX6ZKPf2XBLaq62oq5gGFxHPj6+5lnC+NOMSRkKFhjcRc0vxsA4xYfJq29tNHA0ShzzVOBLb1YCCmJzUcYPPeF8Kro9HeXyKtnJcbDcVH2bRHXcoeQ18blsb4RuFyoCiuxC7UTv9Geq2T6TTT/sHM7El7ozrmlsmNQWadvAmCg1CwxPSUkeT3Bh2+nLAArN3ZKlAgImdJOwuQVp/3tYNKxYfuCYeCICaWpmM0aaDEjXIHEBT8+jQidBfMpYRTRtMbwZtWkk="
     app: dear-genie-dev
     on:
-        repo: huong-dang/dear-genie
+        repo: huong-dang/dearGenie
