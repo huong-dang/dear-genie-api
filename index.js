@@ -5,7 +5,7 @@ const accounts = require("./route/accounts");
 const wishes = require("./route/wishes");
 const bodyParser = require("body-parser");
 const connectDB = require("./db");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
     const app = express();
