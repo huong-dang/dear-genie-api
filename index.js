@@ -13,7 +13,7 @@ connectDB().then(() => {
     app.use("/account", accounts);
     app.use("/wish", wishes);
     app.get("/", (req, res) => {
-        res.send("hello!");
+        res.status(200).send("yay!");
     });
     app.listen(PORT, (err) => {
         if (err) throw err;

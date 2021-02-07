@@ -2,16 +2,25 @@ const express = require("express");
 const router = express.Router();
 const Account = require("../model/account");
 const { getMongooseValidationErrors } = require("../utilities/errors");
+const { verifyToken, oktaJwtVerifier } = require("../utilities/auth");
 
-router.post("/all", (req, res) => {
-    return Account.find({}, (err, result) => {
-        if (err) {
+router.post("/all", verifyToken, (req, res) => {
+    return oktaJwtVerifier
+        .verifyAccessToken(req.token, process.env.AUDIENCE)
+        .then((jwt) => {
+            return Account.find({}, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.send("sucks");
+                } else {
+                    res.send(result);
+                }
+            });
+        })
+        .catch((err) => {
             console.log(err);
-            res.send("sucks");
-        } else {
-            res.send(result);
-        }
-    });
+            res.sendStatus(403);
+        });
 });
 
 router.post("/login", async (req, res) => {
